@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<head><title>Dashboard</title></head>
+<body>
+  <h2>Welcome, {{ current_user.username }}!</h2>
+
+  <h3>Uploaded Files:</h3>
+  <ul>
+    {% for file in files %}
+      <li>
+        {{ file }}
+        | <a href="{{ url_for('uploaded_file', filename=file) }}" target="_blank">🔗 View</a>
+        | <a href="{{ url_for('uploaded_file', filename=file) }}" download>📥 Download</a>
+        <form method="POST" action="{{ url_for('delete_file', filename=file) }}" style="display:inline;">
+          <button type="submit">🗑️ Delete</button>
+        </form>
+      </li>
+    {% else %}
+      <li>No files uploaded yet.</li>
+    {% endfor %}
+  </ul>
+
+  <p><a href="{{ url_for('upload') }}">📤 Upload a New File</a></p>
+  <p><a href="{{ url_for('logout') }}">🚪 Logout</a></p>
+
+  {% with messages = get_flashed_messages() %}
+    {% for message in messages %}
+    <p class="success">{{ message }}</p>
+    {% endfor %}
+  {% endwith %}
+</body>
+</html>
