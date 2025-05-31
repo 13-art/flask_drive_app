@@ -1,20 +1,98 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Login</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Mini Drive</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(120deg, #e0f7fa, #fff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-box {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .login-box h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #0077cc;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #005fa3;
+    }
+
+    .message {
+      color: red;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .register-link {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 14px;
+    }
+
+    .register-link a {
+      color: #0077cc;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
-    <h2>Login</h2>
-    <form method="POST">
-        <input type="text" name="username" placeholder="Username" required><br><br>
-        <input type="password" name="password" placeholder="Password" required><br><br>
-        <button type="submit">Login</button>
-    </form>
-    <p>Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
+  <div class="login-box">
+    <h2>Login to Mini Drive</h2>
     {% with messages = get_flashed_messages() %}
-      {% for message in messages %}
-        <p style="color:red;">{{ message }}</p>
-      {% endfor %}
+      {% if messages %}
+        <div class="message">{{ messages[0] }}</div>
+      {% endif %}
     {% endwith %}
+
+    <form method="POST">
+      <input type="text" name="username" placeholder="Username" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+
+    <div class="register-link">
+      Don't have an account? <a href="{{ url_for('register') }}">Register here</a>
+    </div>
+  </div>
 </body>
 </html>

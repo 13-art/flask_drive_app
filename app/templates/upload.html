@@ -1,20 +1,108 @@
 <!DOCTYPE html>
-<html>
-<head><title>Upload File</title></head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Upload File</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background-color: #f5f7fa;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar {
+      background-color: #1a73e8;
+      padding: 15px 25px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar h2 {
+      margin: 0;
+    }
+
+    .back-btn {
+      background-color: white;
+      color: #1a73e8;
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    h3 {
+      margin-top: 0;
+      text-align: center;
+      color: #333;
+    }
+
+    input[type="file"] {
+      margin: 20px 0;
+    }
+
+    button {
+      background-color: #1a73e8;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0f5bcf;
+    }
+
+    .flash {
+      color: green;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        margin: 20px;
+        padding: 20px;
+      }
+
+      h3 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
 <body>
-  <h2>Upload File</h2>
+  <div class="navbar">
+    <h2>Upload File</h2>
+    <a href="{{ url_for('dashboard') }}" class="back-btn">← Back</a>
+  </div>
 
-  <form method="POST" enctype="multipart/form-data">
-    <input type="file" name="file" required>
-    <button type="submit">Upload</button>
-  </form>
+  <div class="container">
+    {% with messages = get_flashed_messages() %}
+      {% for message in messages %}
+        <p class="flash">{{ message }}</p>
+      {% endfor %}
+    {% endwith %}
 
-  <p><a href="{{ url_for('dashboard') }}">← Back to Dashboard</a></p>
-
-  {% with messages = get_flashed_messages() %}
-    {% for message in messages %}
-      <p style="color: green;">{{ message }}</p>
-    {% endfor %}
-  {% endwith %}
+    <form method="POST" enctype="multipart/form-data">
+      <input type="file" name="file" required>
+      <br><br>
+      <button type="submit">Upload</button>
+    </form>
+  </div>
 </body>
 </html>
