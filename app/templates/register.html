@@ -3,99 +3,74 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Register for Mini Drive</title>
+  <title>Register - Mini Drive</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f1f3f4;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to right, #dfe9f3, #ffffff);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
     }
-
-    .form-container {
-      background-color: #fff;
-      padding: 40px;
-      border-radius: 15px;
-      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    .register-container {
       max-width: 400px;
-      width: 100%;
-    }
-
-    h2 {
+      margin: 80px auto;
+      padding: 30px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
       text-align: center;
-      color: #333;
-      margin-bottom: 30px;
     }
-
+    h2 {
+      color: #4285F4;
+      margin-bottom: 20px;
+    }
     input[type="text"],
     input[type="password"] {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 20px;
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
       border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 16px;
     }
-
     button {
-      width: 100%;
-      padding: 12px;
       background-color: #1a73e8;
-      color: white;
+      color: #fff;
       border: none;
-      border-radius: 8px;
-      font-size: 16px;
+      padding: 10px 18px;
+      border-radius: 5px;
+      font-weight: 500;
       cursor: pointer;
+      margin-top: 10px;
     }
-
-    button:hover {
-      background-color: #1669c1;
-    }
-
-    .link {
-      text-align: center;
-      margin-top: 15px;
-    }
-
-    .link a {
+    a {
+      display: inline-block;
+      margin-top: 20px;
       text-decoration: none;
       color: #1a73e8;
+      font-weight: 500;
     }
-
-    .link a:hover {
-      text-decoration: underline;
-    }
-
     .message {
       color: green;
-      text-align: center;
-      margin-bottom: 15px;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
-  <div class="form-container">
-    <h2>Register for Mini Drive</h2>
+  <div class="register-container">
+    <h2>👤 Create an Account</h2>
+    <form method="POST">
+      <input type="text" name="username" placeholder="Username" required><br>
+      <input type="password" name="password" placeholder="Password" required><br>
+      <button type="submit">Register</button>
+    </form>
+    <a href="{{ url_for('login') }}">🔐 Already have an account? Login</a>
 
     {% with messages = get_flashed_messages() %}
       {% for message in messages %}
-        <p class="message">{{ message }}</p>
+        <div class="message">{{ message }}</div>
       {% endfor %}
     {% endwith %}
-
-    <form method="POST">
-      <input type="text" name="username" placeholder="Username" required />
-      <input type="password" name="password" placeholder="Password" required />
-      <button type="submit">Register</button>
-    </form>
-
-    <div class="link">
-      Already have an account? <a href="{{ url_for('login') }}">Login here</a>
-    </div>
   </div>
 </body>
 </html>

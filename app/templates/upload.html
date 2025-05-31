@@ -1,108 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Upload File</title>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload File - Mini Drive</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      background-color: #f5f7fa;
+      font-family: 'Inter', sans-serif;
+      background-color: #f1f3f4;
       margin: 0;
       padding: 0;
     }
-
-    .navbar {
-      background-color: #1a73e8;
-      padding: 15px 25px;
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .navbar h2 {
-      margin: 0;
-    }
-
-    .back-btn {
-      background-color: white;
-      color: #1a73e8;
-      padding: 8px 16px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .container {
-      max-width: 600px;
-      margin: 50px auto;
+    .upload-container {
+      max-width: 500px;
+      margin: 100px auto;
       background: white;
       padding: 30px;
       border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-
-    h3 {
-      margin-top: 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       text-align: center;
-      color: #333;
     }
-
+    h2 {
+      color: #4285F4;
+      margin-bottom: 20px;
+    }
     input[type="file"] {
       margin: 20px 0;
     }
-
     button {
       background-color: #1a73e8;
-      color: white;
+      color: #fff;
       border: none;
-      padding: 12px 20px;
-      font-size: 16px;
-      border-radius: 6px;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: 500;
       cursor: pointer;
     }
-
-    button:hover {
-      background-color: #0f5bcf;
+    a {
+      display: block;
+      margin-top: 20px;
+      color: #1a73e8;
+      text-decoration: none;
+      font-weight: 500;
     }
-
-    .flash {
+    .message {
+      margin-top: 10px;
       color: green;
-      text-align: center;
-      margin-bottom: 15px;
-    }
-
-    @media (max-width: 600px) {
-      .container {
-        margin: 20px;
-        padding: 20px;
-      }
-
-      h3 {
-        font-size: 20px;
-      }
     }
   </style>
 </head>
 <body>
-  <div class="navbar">
-    <h2>Upload File</h2>
-    <a href="{{ url_for('dashboard') }}" class="back-btn">← Back</a>
-  </div>
-
-  <div class="container">
-    {% with messages = get_flashed_messages() %}
-      {% for message in messages %}
-        <p class="flash">{{ message }}</p>
-      {% endfor %}
-    {% endwith %}
-
+  <div class="upload-container">
+    <h2>📤 Upload a File</h2>
     <form method="POST" enctype="multipart/form-data">
-      <input type="file" name="file" required>
-      <br><br>
+      <input type="file" name="file" required><br>
       <button type="submit">Upload</button>
     </form>
+    <a href="{{ url_for('dashboard') }}">⬅️ Back to Dashboard</a>
+
+    {% with messages = get_flashed_messages() %}
+      {% for message in messages %}
+        <div class="message">{{ message }}</div>
+      {% endfor %}
+    {% endwith %}
   </div>
 </body>
 </html>
