@@ -7,8 +7,8 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-UPLOAD_FOLDER = os.path.join(basedir, '..', 'uploads')
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+UPLOAD_BASE = os.path.join(basedir, '..', 'uploads')
+app.config['UPLOAD_BASE'] = UPLOAD_BASE
 db_path = os.path.join(basedir, '..', 'instance', 'app.db')
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

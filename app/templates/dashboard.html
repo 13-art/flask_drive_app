@@ -64,7 +64,7 @@
     <h3>Uploaded Files:</h3>
     {% for file in files %}
       <div class="file-box">
-        <a href="{{ url_for('uploaded_file', filename=file) }}" target="_blank">{{ file }}</a>
+        <a href="{{ url_for('uploaded_file', user_id=current_user.id, filename=file) }}" target="_blank">{{ file }}</a>
         <div class="file-actions">
           <form method="POST" action="{{ url_for('delete_file', filename=file) }}">
             <button type="submit">🗑️</button>

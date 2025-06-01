@@ -49,7 +49,9 @@ def register():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    files = os.listdir(app.config['UPLOAD_FOLDER'])  
+    user_folder = os.path.join(app.config['UPLOAD_BASE'], str(current_user.id))
+    os.makedirs(user_folder, exist_ok=True)
+    files = os.listdir(user_folder)
     return render_template('dashboard.html', files=files)
 
 @app.route('/logout')
@@ -72,17 +74,24 @@ def upload():
             return redirect(request.url)
 
         filename = secure_filename(file.filename)
-        upload_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        user_folder = os.path.join(app.config['UPLOAD_BASE'], str(current_user.id))
+        os.makedirs(user_folder, exist_ok=True)
+        upload_path = os.path.join(user_folder, filename)
         file.save(upload_path)
         flash('File uploaded successfully.')
         return redirect(url_for('dashboard'))
 
     return render_template('upload.html')
 
-@app.route('/uploads/<filename>')
+@app.route('/uploads/<int:user_id>/<filename>')
 @login_required
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+def uploaded_file(user_id, filename):
+    if current_user.id != user_id:
+        flash("Unauthorized access.")
+        return redirect(url_for('dashboard'))
+
+    user_folder = os.path.join(app.config['UPLOAD_FOLDER'], str(user_id))
+    return send_from_directory(user_folder, filename)
 
 @app.route('/notes', methods=['GET', 'POST'])
 @login_required
@@ -111,15 +120,14 @@ def delete_note(note_id):
         flash("Unauthorized access.")
     return redirect(url_for('notes'))
 
-
 @app.route('/delete_file/<filename>', methods=['POST'])
 @login_required
 def delete_file(filename):
-    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    user_folder = os.path.join(app.config['UPLOAD_BASE'], str(current_user.id))
+    filepath = os.path.join(user_folder, filename)
     if os.path.exists(filepath):
         os.remove(filepath)
         flash(f"{filename} deleted.")
     else:
         flash("File not found.")
     return redirect(url_for('dashboard'))
-
